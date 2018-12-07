@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <conio.h>
-#include <process.h>
 
 typedef struct Node{
 char name[10];
@@ -22,7 +21,7 @@ LinkList* InitLinkList()
 	fp = fopen("information.txt", "r");
 	if (!fp)
     {
-        printf("ÎÄ¼ş´ò¿ªÊ§°Ü£¡\n");
+        printf("æ–‡ä»¶æ‰“å¼€å¤±è´¥ï¼\n");
         return;
     }
     char s[10];
@@ -50,10 +49,10 @@ LinkList* MoveToEnd(LinkList* head)
 }
 void GetScore(LinkList* end)
 {
-	puts("ÇëÊäÈëÑ§ÉúĞÕÃû£º");
+	puts("è¯·è¾“å…¥å­¦ç”Ÿå§“åï¼š");
     char name[10];
     scanf("%s", name);
-    puts("ÇëÊäÈëÑ§Éú³É¼¨£º");
+    puts("è¯·è¾“å…¥å­¦ç”Ÿæˆç»©ï¼š");
     int score;
     scanf("%d", &score);
     LinkList* stu;
@@ -62,8 +61,9 @@ void GetScore(LinkList* end)
     stu->score = score;
     end->next = stu;
     end = stu;
-    puts("1.¼ÌĞøÊäÈë");
-    puts("2.·µ»Ø");
+    puts("æ–°å¢æˆåŠŸï¼"); 
+    /*puts("1.ç»§ç»­è¾“å…¥");
+    puts("2.è¿”å›");
     int t;
     scanf("%d", &t);
     if (t == 1)
@@ -73,9 +73,72 @@ void GetScore(LinkList* end)
     else
     {
         return;
-    }
+    }*/ 
 }
 
+void DeleteScore(LinkList* head)
+{
+	LinkList* p = head->next, *q = head;
+	puts("è¯·è¾“å…¥å­¦ç”Ÿå§“åï¼š");
+	char s[10];
+	scanf("%s", s);
+	while ( p != NULL )
+	{
+		if (strcmp(p->name,s)==0 )
+		{
+			printf("å­¦ç”Ÿå§“åï¼š%s, å­¦ç”Ÿæˆç»©ï¼š%d\n", p->name, p->score);
+			q->next = p->next;
+			free(p);
+			puts("åˆ é™¤æˆåŠŸï¼");
+			break;
+		}
+		q = p;
+		p = p->next;
+	}
+	 
+	 
+}
+
+
+void SearchScore(LinkList* head)
+{
+	LinkList* p = head->next;
+	puts("è¯·è¾“å…¥å­¦ç”Ÿå§“åï¼š");
+	char s[10];
+	scanf("%s", s);
+	while ( p != NULL )
+	{
+		if ( strcmp(p->name,s)==0 )
+		{
+			puts("æŸ¥è¯¢æˆåŠŸï¼");
+			printf("å­¦ç”Ÿå§“åï¼š%s, å­¦ç”Ÿæˆç»©ï¼š%d\n", p->name, p->score);
+			return;
+		}
+		p = p->next;
+	}
+	puts("æŸ¥æ— æ­¤äººï¼");
+}
+
+void ModifyScore(LinkList* head)
+{
+	LinkList* p = head->next;
+	puts("è¯·è¾“å…¥å­¦ç”Ÿå§“åï¼š");
+	char s[10];
+	scanf("%s", s);
+	while ( p != NULL )
+	{
+		if ( strcmp(p->name,s)==0 )
+		{
+			printf("å­¦ç”Ÿå§“åï¼š%s, å­¦ç”Ÿæˆç»©ï¼š%d\n", p->name, p->score);
+			puts("è¯·è¾“å…¥æ›´æ”¹åçš„æˆç»©ï¼š");
+			scanf("%d", &p->score);
+			puts("ä¿®æ”¹æˆåŠŸï¼");
+			return;
+		}
+		p = p->next;
+	}
+	puts("æŸ¥æ— æ­¤äººï¼");
+}
 void PrintScore(LinkList* head)
 {
     int i;
@@ -84,17 +147,19 @@ void PrintScore(LinkList* head)
     for (i = 0; t->next !=NULL; i++)
     {
         t = t->next;
-        printf("Ñ§ÉúĞÕÃû£º%s  Ñ§Éú³É¼¨£º%d\n",t->name, t->score);
+        printf("å­¦ç”Ÿå§“åï¼š%s  å­¦ç”Ÿæˆç»©ï¼š%d\n",t->name, t->score);
     }
 }
 void Menu()
 {
-    puts("Ñ§Éú³É¼¨¹ÜÀíÏµÍ³");
-    puts("1.Ìí¼Ó³É¼¨");
-    puts("2.´òÓ¡³É¼¨");
-    puts("3.É¾³ı³É¼¨");
-    puts("4.ÍË³ö");
-    puts("ÇëÑ¡Ôñ1~4");
+    puts("å­¦ç”Ÿæˆç»©ç®¡ç†ç³»ç»Ÿ");
+    puts("1.æ·»åŠ æˆç»©");
+    puts("2.æ‰“å°æˆç»©");
+    puts("3.åˆ é™¤æˆç»©");
+    puts("4.æŸ¥è¯¢æˆç»©");
+    puts("5.ä¿®æ”¹æˆç»©");
+    puts("6.é€€å‡º");
+    puts("è¯·é€‰æ‹©1~6");
 }
 
 void LoadInfo(LinkList *head)
@@ -106,7 +171,7 @@ void LoadInfo(LinkList *head)
     FILE *fp = fopen("./Information.dat","rb");
     if (!fp)
     {
-        printf("ÎÄ¼ş´ò¿ªÊ§°Ü£¡\n");
+        printf("æ–‡ä»¶æ‰“å¼€å¤±è´¥ï¼\n");
         return;
     }
         q = (LinkList*)malloc(sizeof(LinkList));
@@ -128,18 +193,17 @@ void SaveInfo(LinkList* head)
 {
     printf("enter!\n");
     LinkList* t = head;
-    FILE* fp = fopen("information.txt","a");
+    FILE* fp = fopen("information.txt","w");
     if (!fp)
     {
-        printf("ÎÄ¼ş´ò¿ªÊ§°Ü\n");
+        printf("æ–‡ä»¶æ‰“å¼€å¤±è´¥\n");
         return;
     }
     int i;
     for (i = 0; t->next !=NULL; i++)
     {
         t = t->next;
-        printf("Ñ§ÉúĞÕÃû£º%s  Ñ§Éú³É¼¨£º%d\n",t->name, t->score);
-        //fprintf(fp, "hello\n");
+        printf("å­¦ç”Ÿå§“åï¼š%s  å­¦ç”Ÿæˆç»©ï¼š%d\n",t->name, t->score);
         fprintf(fp, "%s ,%d\n",t->name, t->score);
     }
     /*while (p != NULL)
@@ -148,14 +212,13 @@ void SaveInfo(LinkList* head)
         p = p->next;
     }*/
     fclose(fp);
-    //system("type fprintf.fp");
-    printf("±£´æ³É¹¦£¡\n");
+    printf("ä¿å­˜æˆåŠŸï¼\n");
 
     /*LinkList* p = head->next;
     FILE* fp = fopen("./Information.dat","ab");
     if (!fp)
     {
-        printf("ÎÄ¼ş´ò¿ªÊ§°Ü\n");
+        printf("æ–‡ä»¶æ‰“å¼€å¤±è´¥\n");
         return;
     }
     while (p != NULL)
@@ -163,7 +226,7 @@ void SaveInfo(LinkList* head)
         fwrite(p, sizeof(LinkList), 1, fp);
         p = p->next;
     }
-    printf("±£´æ³É¹¦\n");
+    printf("ä¿å­˜æˆåŠŸ\n");
     fclose(fp);*/
 }
 
@@ -173,7 +236,6 @@ int main()
     LinkList* head, *ptr;
     head = InitLinkList();
     PrintScore(head);
-    //LoadInfo(head);
     LinkList* end;
     while (1)
     {
@@ -190,9 +252,15 @@ int main()
             PrintScore(head);
             break;
         case 3:
-        	//DeleteScore();
+        	DeleteScore(head);
         	break;
         case 4:
+        	SearchScore(head);
+        	break;
+        case 5:
+        	ModifyScore(head);
+        	break;
+        case 6:
             goto save;
         }
     }
@@ -201,4 +269,3 @@ int main()
     getchar();
     return 0;
 }
-
